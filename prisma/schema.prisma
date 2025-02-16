@@ -1,0 +1,23 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x"]
+}
+
+model User {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  email     String  @unique
+  password  String
+  name      String
+  role      String  @default("user")  // เพิ่ม role
+}
+
+model Checkbox {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  label String
+  selected Boolean
+}
